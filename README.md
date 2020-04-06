@@ -1,1 +1,4 @@
-# refactoring-improving-the-design-of-existing-code
+リファクタリング 既存のコードを安全に改善する
+===
+
+リファクタリング本のアウトプット用リポジトリ
