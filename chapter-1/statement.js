@@ -3,8 +3,8 @@ function statement(invoice, plays) {
 
     let result = `Statement for ${ invoice.customer }\n`;
 
-    for (let perf of invoice.performances) {
-        result += `${ playFor(perf).name }: ${ usd(amountFor(perf)) } (${ perf.audience } seats)\n`;
+    for (let performance of invoice.performances) {
+        result += `${ playFor(performance).name }: ${ usd(amountFor(performance)) } (${ performance.audience } seats)\n`;
     }
 
     result += `Amount owed is ${ usd(totalAmount()) }\n`;
@@ -16,8 +16,8 @@ function statement(invoice, plays) {
 
         let result = 0;
 
-        for (let perf of invoice.performances) {
-            result += amountFor(perf);
+        for (let performance of invoice.performances) {
+            result += amountFor(performance);
         }
 
         return result;
@@ -27,8 +27,8 @@ function statement(invoice, plays) {
 
         let result = 0;
 
-        for (let perf of invoice.performances) {
-            result += volumeCreditsFor(perf);
+        for (let performance of invoice.performances) {
+            result += volumeCreditsFor(performance);
         }
 
         return result;
