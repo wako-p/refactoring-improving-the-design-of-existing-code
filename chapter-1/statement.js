@@ -16,20 +16,18 @@ function statement(invoice, plays) {
 
     for (let perf of invoice.performances) {
 
-        const play = playFor(perf);
-
-        let thisAmount = amountFor(perf, play);
+        let thisAmount = amountFor(perf, playFor(perf));
 
         // ボリューム特典のポイントを加算
         volumeCredits += Math.max(perf.audience - 30, 0);
 
         // 喜劇の場合は10人につき、さらにポイント加算
-        if (play.type === "comedy") {
+        if (playFor(perf).type === "comedy") {
             volumeCredits += Math.floor(perf.audience / 5);
         }
 
         // 注文の内訳を出力
-        result += `${ play.name }: ${ format(thisAmount / 100) } (${ perf.audience } seats)\n`;
+        result += `${ playFor(perf).name }: ${ format(thisAmount / 100) } (${ perf.audience } seats)\n`;
         totalAmount += thisAmount;
     }
 
