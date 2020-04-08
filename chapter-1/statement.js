@@ -3,8 +3,10 @@ function statement(invoice, plays) {
 
     const statementData = {};
 
-    statementData.customer     = invoice.customer;
-    statementData.performances = invoice.performances.map(enrichPerformance(performance));
+    statementData.customer           = invoice.customer;
+    statementData.performances       = invoice.performances.map(enrichPerformance(performance));
+    statementData.totalAmount        = totalAmount(statementData);
+    statementData.totalVolumeCredits = totalVolumeCredits(statementData);
 
     return renderPlaneText(statementData, invoice, plays);
 
@@ -63,22 +65,8 @@ function statement(invoice, plays) {
 
         return result;
     }
-}
 
-function renderPlaneText(data, plays) {
-
-    let result = `Statement for ${ data.customer }\n`;
-
-    for (let performance of data.performances) {
-        result += `${ performance.play.name }: ${ usd(performance.amount) } (${ performance.audience } seats)\n`;
-    }
-
-    result += `Amount owed is ${ usd(totalAmount()) }\n`;
-    result += `You earned ${ totalVolumeCredits() } credits\n`;
-
-    return result;
-
-    function totalAmount() {
+    function totalAmount(data) {
 
         let result = 0;
 
@@ -89,7 +77,7 @@ function renderPlaneText(data, plays) {
         return result;
     }
 
-    function totalVolumeCredits() {
+    function totalVolumeCredits(data) {
 
         let result = 0;
 
@@ -99,6 +87,20 @@ function renderPlaneText(data, plays) {
 
         return result;
     }
+}
+
+function renderPlaneText(data, plays) {
+
+    let result = `Statement for ${ data.customer }\n`;
+
+    for (let performance of data.performances) {
+        result += `${ performance.play.name }: ${ usd(performance.amount) } (${ performance.audience } seats)\n`;
+    }
+
+    result += `Amount owed is ${ usd(data.totalAmount) }\n`;
+    result += `You earned ${ data.totalVolumeCredits } credits\n`;
+
+    return result;
 
     function usd(aNumber) {
         return new Intl.NumberFormat(
