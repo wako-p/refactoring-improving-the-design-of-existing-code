@@ -4,9 +4,16 @@ function statement(invoice, plays) {
     const statementData = {};
 
     statementData.customer     = invoice.customer;
-    statementData.performances = invoice.performances;
+    statementData.performances = invoice.performances.map(enrichPerformance(performance));
 
     return renderPlaneText(statementData, invoice, plays);
+
+    function enrichPerformance(aPerformance) {
+
+        const result = Object.assign({}, aPerformance);
+
+        return result;
+    }
 }
 
 function renderPlaneText(data, plays) {
