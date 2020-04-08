@@ -16,15 +16,36 @@ function renderPlaneText(data) {
     result += `You earned ${ data.totalVolumeCredits } credits\n`;
 
     return result;
+}
 
-    function usd(aNumber) {
-        return new Intl.NumberFormat(
-            "en-US",
-            {
-                style:                 "currency",
-                currency:              "USD",
-                minimumFractionDigits: 2
-            }
-        ).format(aNumber/100);
+function htmlStatement(invoice, plays) {
+    return renderHtml(createStatementData(invoice, plays));
+}
+
+function renderHtml(data) {
+
+    let result =`<h1>Statement for ${ data.customer }</h1>\n`;
+
+    result += `<table>\n`;
+    result += `<tr><th>play</th><th>seats</th><th>cost</th></tr>\n`;
+    for (let performance of data.performances) {
+        result += `    <tr><td>${ performance.play.name }</td><td>${ performance.audience }</td>`;
+        result += `<td>${ usd(performance.amount) }</td></tr>\n`;
     }
+    result += `</tabele>\n`;
+    result += `<p>Amount owed is <em>${ usd(data.totalAmount) }</em></p>\n`;
+    result += `<p>You earned <em>${ data.totalVolumeCredits }</em> credits</p>\n`;
+
+    return result;
+}
+
+function usd(aNumber) {
+    return new Intl.NumberFormat(
+        "en-US",
+        {
+            style:                 "currency",
+            currency:              "USD",
+            minimumFractionDigits: 2
+        }
+    ).format(aNumber/100);
 }
