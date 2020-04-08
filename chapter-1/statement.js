@@ -1,5 +1,9 @@
 
 function statement(invoice, plays) {
+    return renderPlaneText(invoice, plays);
+}
+
+function renderPlaneText(invoice, plays) {
 
     let result = `Statement for ${ invoice.customer }\n`;
 
