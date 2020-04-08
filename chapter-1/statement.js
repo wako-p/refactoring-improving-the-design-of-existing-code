@@ -1,12 +1,13 @@
 
 function statement(invoice, plays) {
     const statementData = {};
+    statementData.customer = invoice.customer;
     return renderPlaneText(invoice, plays);
 }
 
 function renderPlaneText(data, invoice, plays) {
 
-    let result = `Statement for ${ invoice.customer }\n`;
+    let result = `Statement for ${ data.customer }\n`;
 
     for (let performance of invoice.performances) {
         result += `${ playFor(performance).name }: ${ usd(amountFor(performance)) } (${ performance.audience } seats)\n`;
