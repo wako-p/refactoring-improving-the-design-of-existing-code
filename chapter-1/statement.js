@@ -1,9 +1,10 @@
 
 function statement(invoice, plays) {
+    const statementData = {};
     return renderPlaneText(invoice, plays);
 }
 
-function renderPlaneText(invoice, plays) {
+function renderPlaneText(data, invoice, plays) {
 
     let result = `Statement for ${ invoice.customer }\n`;
 
