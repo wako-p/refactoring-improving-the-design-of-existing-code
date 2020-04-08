@@ -8,7 +8,7 @@ function statement(invoice, plays) {
     statementData.totalAmount        = totalAmount(statementData);
     statementData.totalVolumeCredits = totalVolumeCredits(statementData);
 
-    return renderPlaneText(statementData, invoice, plays);
+    return renderPlaneText(statementData);
 
     function enrichPerformance(aPerformance) {
 
@@ -89,7 +89,7 @@ function statement(invoice, plays) {
     }
 }
 
-function renderPlaneText(data, plays) {
+function renderPlaneText(data) {
 
     let result = `Statement for ${ data.customer }\n`;
 
