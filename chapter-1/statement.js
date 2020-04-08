@@ -1,5 +1,9 @@
 
 function statement(invoice, plays) {
+    return renderPlaneText(createStatementData(invoice, plays));
+}
+
+function createStatementData(invoice, plays) {
 
     const statementData = {};
 
@@ -8,7 +12,7 @@ function statement(invoice, plays) {
     statementData.totalAmount        = totalAmount(statementData);
     statementData.totalVolumeCredits = totalVolumeCredits(statementData);
 
-    return renderPlaneText(statementData);
+    return statementData;
 
     function enrichPerformance(aPerformance) {
 
@@ -37,7 +41,7 @@ function statement(invoice, plays) {
                     result += 1000 * (aPerformance.audience - 30);
                 }
                 break;
-    
+
             case "comedy":
                 result = 30000;
                 if (aPerformance.audience > 20) {
@@ -45,7 +49,7 @@ function statement(invoice, plays) {
                 }
                 result += 300 * aPerformance.audience;
                 break;
-    
+
             default:
                 throw new Error(`unknown type: ${ aPerformance.play.type }`);
         }
