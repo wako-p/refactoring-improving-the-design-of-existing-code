@@ -48,6 +48,12 @@ class PerformanceCalculator {
     }
 }
 
+class TragedyCalculator extends PerformanceCalculator {
+}
+
+class ComedyCalculator extends PerformanceCalculator {
+}
+
 export default function createStatementData(invoice, plays) {
 
     const statementData = {};
