@@ -12,8 +12,9 @@ function statement(invoice, plays) {
 
         const result = Object.assign({}, aPerformance);
 
-        result.play   = playFor(result);
-        result.amount = amountFor(result);
+        result.play          = playFor(result);
+        result.amount        = amountFor(result);
+        result.volumeCredits = volumeCreditsFor(result);
 
         return result;
     }
@@ -49,6 +50,19 @@ function statement(invoice, plays) {
 
         return result;
     }
+
+    function volumeCreditsFor(aPerformance) {
+
+        let result = 0;
+        result += Math.max(aPerformance.audience - 30, 0);
+
+        // 喜劇の場合は10人につき、さらにポイント加算
+        if (aPerformance.play.type === "comedy") {
+            result += Math.floor(aPerformance.audience / 5);
+        }
+
+        return result;
+    }
 }
 
 function renderPlaneText(data, plays) {
@@ -80,7 +94,7 @@ function renderPlaneText(data, plays) {
         let result = 0;
 
         for (let performance of data.performances) {
-            result += volumeCreditsFor(performance);
+            result += performance.volumeCredits;
         }
 
         return result;
@@ -95,18 +109,5 @@ function renderPlaneText(data, plays) {
                 minimumFractionDigits: 2
             }
         ).format(aNumber/100);
-    }
-
-    function volumeCreditsFor(aPerformance) {
-
-        let result = 0;
-        result += Math.max(aPerformance.audience - 30, 0);
-
-        // 喜劇の場合は10人につき、さらにポイント加算
-        if (aPerformance.play.type === "comedy") {
-            result += Math.floor(aPerformance.audience / 5);
-        }
-
-        return result;
     }
 }
