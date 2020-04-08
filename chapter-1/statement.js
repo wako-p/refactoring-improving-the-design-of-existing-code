@@ -1,15 +1,19 @@
 
 function statement(invoice, plays) {
+
     const statementData = {};
-    statementData.customer = invoice.customer;
-    return renderPlaneText(invoice, plays);
+
+    statementData.customer     = invoice.customer;
+    statementData.performances = invoice.performances;
+
+    return renderPlaneText(statementData, invoice, plays);
 }
 
 function renderPlaneText(data, invoice, plays) {
 
     let result = `Statement for ${ data.customer }\n`;
 
-    for (let performance of invoice.performances) {
+    for (let performance of data.performances) {
         result += `${ playFor(performance).name }: ${ usd(amountFor(performance)) } (${ performance.audience } seats)\n`;
     }
 
@@ -22,7 +26,7 @@ function renderPlaneText(data, invoice, plays) {
 
         let result = 0;
 
-        for (let performance of invoice.performances) {
+        for (let performance of data.performances) {
             result += amountFor(performance);
         }
 
@@ -33,7 +37,7 @@ function renderPlaneText(data, invoice, plays) {
 
         let result = 0;
 
-        for (let performance of invoice.performances) {
+        for (let performance of data.performances) {
             result += volumeCreditsFor(performance);
         }
 
