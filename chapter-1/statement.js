@@ -9,7 +9,7 @@ function statement(invoice, plays) {
     return renderPlaneText(statementData, invoice, plays);
 }
 
-function renderPlaneText(data, invoice, plays) {
+function renderPlaneText(data, plays) {
 
     let result = `Statement for ${ data.customer }\n`;
 
